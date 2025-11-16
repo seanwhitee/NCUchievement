@@ -24,7 +24,7 @@ export const getConfig = (): Config => {
     scope: process.env.SCOPE,
     backendBaseUrl: process.env.BACKEND_BASE_URL,
     frontendBaseUrl: process.env.FRONTEND_BASE_URL,
-    redirectUrl: `${process.env.BACKEND_BASE_URL}/oauth/callback`,
+    redirectUrl: `${process.env.FRONTEND_BASE_URL}/oauth/callback`,
     oauthTokenUrl,
     oauthUserInfoUrl,
     secretKey: process.env.SECRET_KEY,
