@@ -13,6 +13,7 @@ const configSchema = z.object({
   redirectUrl: z.string(),
   oauthTokenUrl: z.string(),
   oauthUserInfoUrl: z.string(),
+  stage: z.enum(["dev", "prod"]),
 });
 export type Config = z.infer<typeof configSchema>;
 export const getConfig = (): Config => {
@@ -28,6 +29,7 @@ export const getConfig = (): Config => {
     oauthTokenUrl,
     oauthUserInfoUrl,
     secretKey: process.env.SECRET_KEY,
+    stage: process.env.STAGE,
   };
   return configSchema.parse(config);
 };
