@@ -4,7 +4,7 @@ import { tryCatch } from "@/utils/tryCatch";
 import { UserOutput } from "./types/user";
 import { User } from "../entity/user";
 
-const baseUrl = `${BACKEND_BASE_URL}/api/auth/me`;
+const baseUrl = `${BACKEND_BASE_URL}/api/auth`;
 
 export const oauthRepo = {
   login: async () => {
