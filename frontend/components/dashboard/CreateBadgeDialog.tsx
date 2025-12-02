@@ -87,8 +87,8 @@ const CreateBadgeDialog = ({
                   <Selector
                     isMultiple
                     options={[
-                      { label: "PNG", value: "image/png" },
-                      { label: "JPEG", value: "image/jpeg" },
+                      { label: "Image", value: "image/*" },
+                      { label: "Video", value: "video/*" },
                     ]}
                     value={field.value ?? []}
                     onChange={field.onChange}
