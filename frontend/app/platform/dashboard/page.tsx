@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+
+import { redirect, RedirectType } from "next/navigation";
+import { useEffect } from "react";
 
 const DashboardPage = () => {
-  return <div>DashboardPage</div>;
+  useEffect(() => {
+    redirect("/platform/dashboard/badges", RedirectType.replace);
+  }, []);
+  return <></>;
 };
 
 export default DashboardPage;
