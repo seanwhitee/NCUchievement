@@ -1,3 +1,5 @@
+import { Submission } from "./submission";
+
 export type Badge = {
   badgeId: string;
   collectionName: string;
@@ -5,6 +7,10 @@ export type Badge = {
   badgeUrl: string;
   description: string;
   type: string[]; // (submission file types)
+};
+
+export type BadgeWithSubmissions = Badge & {
+  submissions: Submission[];
 };
 
 export type CreateBadge = {

@@ -1,6 +1,5 @@
-import React from "react";
 import type {
-  Badge as BadgeEntity,
+  BadgeWithSubmissions,
   UpdateBadge,
 } from "../lib/domain/entity/badge";
 import {
@@ -17,7 +16,7 @@ const CollectionContainer = ({
   onBadgeDelete,
 }: {
   name: string;
-  badges: BadgeEntity[];
+  badges: BadgeWithSubmissions[];
   onBadgeUpdate: (id: string, entity: UpdateBadge) => void;
   onBadgeDelete: (id: string) => void;
 }) => {

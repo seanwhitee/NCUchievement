@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type {
-  Badge as BadgeEntity,
+  BadgeWithSubmissions,
   UpdateBadge,
 } from "@/lib/domain/entity/badge";
 import { Button } from "./ui/button";
@@ -23,15 +23,23 @@ import { Badge } from "./ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import UpdateBadgeDialog, { FormValues } from "./dashboard/UpdateBadgeDialog";
 
-export type BadgeProps = BadgeEntity & {
+import { Submission } from "@/lib/domain/entity/submission";
+import SubmissionsDialog from "./dashboard/SubmissionsDialog";
+
+export type BadgeProps = BadgeWithSubmissions & {
   onUpdate: (id: string, entity: UpdateBadge) => void;
   onDelete: (id: string) => void;
 };
 const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
-  const { name, description, badgeUrl, type } = rest;
+  const { name, description, badgeUrl, type, submissions } = rest;
+
   const [defaultBadge, setDefault] = useState<undefined | FormValues>(
     undefined
   );
+
+  const [dialogSubmissions, setSubmissions] = useState<
+    Submission[] | undefined
+  >(undefined);
 
   const handleUpdate = (entity: UpdateBadge) => {
     onUpdate(rest.badgeId, entity);
@@ -70,6 +78,9 @@ const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
               >
                 Edit
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSubmissions(submissions)}>
+                Submissions
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onDelete(rest.badgeId)}>
                 Delete
               </DropdownMenuItem>
@@ -99,6 +110,13 @@ const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
           defaultValues={defaultBadge}
           onUpdate={handleUpdate}
           onCancel={() => setDefault(undefined)}
+        />
+      )}
+      {dialogSubmissions && (
+        <SubmissionsDialog
+          isOpen={!!dialogSubmissions}
+          submissions={dialogSubmissions}
+          onClose={() => setSubmissions(undefined)}
         />
       )}
     </Card>

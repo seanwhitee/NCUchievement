@@ -4,13 +4,19 @@ import { Button } from "@/components/ui/button";
 import { useBadgeApi } from "@/hooks/api/useBadgeApi";
 import { useMemo, useState } from "react";
 import { groupBy } from "ramda";
-import { Badge, UpdateBadge } from "@/lib/domain/entity/badge";
+import {
+  Badge,
+  BadgeWithSubmissions,
+  UpdateBadge,
+} from "@/lib/domain/entity/badge";
 import { Accordion } from "@/components/ui/accordion";
 import CollectionContainer from "@/components/CollectionContainer";
 import { Plus } from "lucide-react";
 import CreateBadgeDialog, {
   FormValues,
 } from "@/components/dashboard/CreateBadgeDialog";
+import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
+import { Submission } from "@/lib/domain/entity/submission";
 
 const createDefaultValues: FormValues = {
   collectionName: "",
@@ -25,12 +31,29 @@ const BadgesPage = () => {
     mutation: { mutateBadges, createBadge, updateBadge, deleteBadge },
   } = useBadgeApi();
 
+  const {
+    query: { submissions },
+  } = useSubmissionApi();
+
+  const submissionsByBadge = useMemo(
+    () => groupBy((s: Submission) => s.badgeId)(submissions ?? []),
+    [submissions]
+  );
+
   const groupByCollection = useMemo(() => {
-    const sortedBadges = (badges ?? []).toSorted((a, b) =>
-      a.collectionName.localeCompare(b.collectionName)
-    );
-    return groupBy((b: Badge) => b.collectionName)(sortedBadges);
-  }, [badges]);
+    const sortedBadges: BadgeWithSubmissions[] = (badges ?? [])
+      .toSorted((a, b) => a.collectionName.localeCompare(b.collectionName))
+      .map((b) => {
+        const founded = Object.entries(submissionsByBadge).find(
+          ([badgeId]) => badgeId === b.badgeId
+        );
+        if (!founded) return { ...b, submissions: [] };
+        const [, submissions] = founded;
+        return { ...b, submissions: submissions ?? [] };
+      });
+
+    return groupBy((b: BadgeWithSubmissions) => b.collectionName)(sortedBadges);
+  }, [badges, submissionsByBadge]);
 
   const [createDefault, setCreateDefault] = useState<undefined | FormValues>(
     undefined
