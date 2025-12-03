@@ -16,7 +16,7 @@ interface ToastProps {
   };
 }
 
-export type ToastType = "error" | "warning";
+export type ToastType = "error" | "warning" | "success";
 
 export function toast(toast: Omit<ToastProps, "id">) {
   const toastBtnProp = toast.button
@@ -40,6 +40,8 @@ export function toast(toast: Omit<ToastProps, "id">) {
 const getBackGroundColor = (type?: ToastType) => {
   if (!type) return "bg-black";
   switch (type) {
+    case "success":
+      return "bg-green-500";
     case "error":
       return "bg-red-600";
     case "warning":

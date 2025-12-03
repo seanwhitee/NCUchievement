@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useBadgeApi } from "@/hooks/api/useBadgeApi";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { groupBy } from "ramda";
 import {
   Badge,
@@ -17,6 +17,7 @@ import CreateBadgeDialog, {
 } from "@/components/dashboard/CreateBadgeDialog";
 import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
 import { Submission } from "@/lib/domain/entity/submission";
+import { toast } from "@/components/AppToast";
 
 const createDefaultValues: FormValues = {
   collectionName: "",
@@ -33,6 +34,7 @@ const BadgesPage = () => {
 
   const {
     query: { submissions },
+    mutation: { review, mutateSubmissions },
   } = useSubmissionApi();
 
   const submissionsByBadge = useMemo(
@@ -78,6 +80,18 @@ const BadgesPage = () => {
     const { badgeId } = await deleteBadge({ id });
     mutateBadges([...(badges ?? []).filter((b) => b.badgeId !== badgeId)]);
   };
+
+  const handleReview = async (id: string, isApproved: boolean) => {
+    const updatedSubmission = await review({ id, isApproved });
+
+    mutateSubmissions([
+      ...(submissions ?? []).map((sub) =>
+        sub.submissionId === id ? updatedSubmission : sub
+      ),
+    ]);
+    toast({ title: "Review success", type: "success" });
+  };
+
   return (
     <div className="flex flex-col">
       <Button
@@ -93,6 +107,7 @@ const BadgesPage = () => {
             key={collectionName}
             name={collectionName}
             badges={badges ?? []}
+            onSubmissionReview={handleReview}
             onBadgeUpdate={handleUpdate}
             onBadgeDelete={handleDelete}
           />

@@ -12,11 +12,13 @@ import AppBadge from "./AppBadge";
 const CollectionContainer = ({
   name,
   badges,
+  onSubmissionReview,
   onBadgeUpdate,
   onBadgeDelete,
 }: {
   name: string;
   badges: BadgeWithSubmissions[];
+  onSubmissionReview: (id: string, isApproved: boolean) => void;
   onBadgeUpdate: (id: string, entity: UpdateBadge) => void;
   onBadgeDelete: (id: string) => void;
 }) => {
@@ -30,6 +32,7 @@ const CollectionContainer = ({
           <AppBadge
             key={b.badgeId}
             {...b}
+            onSubmissionReview={onSubmissionReview}
             onUpdate={onBadgeUpdate}
             onDelete={onBadgeDelete}
           />

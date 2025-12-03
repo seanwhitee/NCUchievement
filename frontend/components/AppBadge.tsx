@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Card,
   CardAction,
@@ -23,23 +23,26 @@ import { Badge } from "./ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import UpdateBadgeDialog, { FormValues } from "./dashboard/UpdateBadgeDialog";
 
-import { Submission } from "@/lib/domain/entity/submission";
 import SubmissionsDialog from "./dashboard/SubmissionsDialog";
 
 export type BadgeProps = BadgeWithSubmissions & {
   onUpdate: (id: string, entity: UpdateBadge) => void;
   onDelete: (id: string) => void;
+  onSubmissionReview: (id: string, isApproved: boolean) => void;
 };
-const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
+const AppBadge = ({
+  onUpdate,
+  onDelete,
+  onSubmissionReview,
+  ...rest
+}: BadgeProps) => {
   const { name, description, badgeUrl, type, submissions } = rest;
 
   const [defaultBadge, setDefault] = useState<undefined | FormValues>(
     undefined
   );
 
-  const [dialogSubmissions, setSubmissions] = useState<
-    Submission[] | undefined
-  >(undefined);
+  const [isDialogOpen, setDialogOpen] = useState(false);
 
   const handleUpdate = (entity: UpdateBadge) => {
     onUpdate(rest.badgeId, entity);
@@ -78,7 +81,7 @@ const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
               >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSubmissions(submissions)}>
+              <DropdownMenuItem onClick={() => setDialogOpen(true)}>
                 Submissions
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onDelete(rest.badgeId)}>
@@ -112,11 +115,12 @@ const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
           onCancel={() => setDefault(undefined)}
         />
       )}
-      {dialogSubmissions && (
+      {isDialogOpen && (
         <SubmissionsDialog
-          isOpen={!!dialogSubmissions}
-          submissions={dialogSubmissions}
-          onClose={() => setSubmissions(undefined)}
+          isOpen={isDialogOpen}
+          submissions={submissions}
+          onClose={() => setDialogOpen(false)}
+          onReview={onSubmissionReview}
         />
       )}
     </Card>
