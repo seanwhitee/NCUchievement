@@ -2,13 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { useBadgeApi } from "@/hooks/api/useBadgeApi";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { groupBy } from "ramda";
-import {
-  Badge,
-  BadgeWithSubmissions,
-  UpdateBadge,
-} from "@/lib/domain/entity/badge";
+import { BadgeWithSubmissions, UpdateBadge } from "@/lib/domain/entity/badge";
 import { Accordion } from "@/components/ui/accordion";
 import CollectionContainer from "@/components/CollectionContainer";
 import { Plus } from "lucide-react";
