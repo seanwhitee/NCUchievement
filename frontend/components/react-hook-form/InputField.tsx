@@ -29,15 +29,8 @@ export function InputField<T extends FieldValues, V = string>({
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result as string;
-      // This includes "data:image/png;base64," prefix
-      // If your teammate wants just the base64 part:
-      // const base64 = base64String.split(',')[1];
-      field.onChange(base64String);
-    };
-    reader.readAsDataURL(file);
+    const blobUrl = URL.createObjectURL(file);
+    field.onChange(blobUrl);
   };
   return (
     <FormField

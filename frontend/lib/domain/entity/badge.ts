@@ -4,23 +4,23 @@ export type Badge = {
   name: string;
   badgeUrl: string;
   description: string;
-  type: string[]; // (submission file types)
+  type: string[];
 };
 
 export type CreateBadge = {
   collectionName: string;
   name: string;
-  file: string; // base64
+  file: string;
   description: string;
-  type: string[]; // (submission file types)
+  type: string[];
 };
 
 export type UpdateBadge = {
   collectionName?: string;
   name?: string;
-  file?: string; // base64
+  file?: string;
   description?: string;
-  type?: string[]; // (submission file types)
+  type?: string[];
 };
 
 export type DeleteResponse = {
