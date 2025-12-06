@@ -20,10 +20,7 @@ export const SigninForm = () => {
         ></Image>
       </CardHeader>
       <CardContent>
-        <Button
-          className="w-full hover:cursor-pointer"
-          onClick={() => oauthRepo.login()}
-        >
+        <Button className="w-full" onClick={() => oauthRepo.login()}>
           Sign in with Portal
         </Button>
       </CardContent>
