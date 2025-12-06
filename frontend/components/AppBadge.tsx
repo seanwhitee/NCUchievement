@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Card,
   CardAction,
@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type {
-  Badge as BadgeEntity,
+  BadgeWithSubmissions,
   UpdateBadge,
 } from "@/lib/domain/entity/badge";
 import { Button } from "./ui/button";
@@ -23,15 +23,26 @@ import { Badge } from "./ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import UpdateBadgeDialog, { FormValues } from "./dashboard/UpdateBadgeDialog";
 
-export type BadgeProps = BadgeEntity & {
+import SubmissionsDialog from "./dashboard/SubmissionsDialog";
+
+export type BadgeProps = BadgeWithSubmissions & {
   onUpdate: (id: string, entity: UpdateBadge) => void;
   onDelete: (id: string) => void;
+  onSubmissionReview: (id: string, isApproved: boolean) => void;
 };
-const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
-  const { name, description, badgeUrl, type } = rest;
+const AppBadge = ({
+  onUpdate,
+  onDelete,
+  onSubmissionReview,
+  ...rest
+}: BadgeProps) => {
+  const { name, description, badgeUrl, type, submissions } = rest;
+
   const [defaultBadge, setDefault] = useState<undefined | FormValues>(
     undefined
   );
+
+  const [isDialogOpen, setDialogOpen] = useState(false);
 
   const handleUpdate = (entity: UpdateBadge) => {
     onUpdate(rest.badgeId, entity);
@@ -70,6 +81,9 @@ const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
               >
                 Edit
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDialogOpen(true)}>
+                Submissions
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onDelete(rest.badgeId)}>
                 Delete
               </DropdownMenuItem>
@@ -99,6 +113,14 @@ const AppBadge = ({ onUpdate, onDelete, ...rest }: BadgeProps) => {
           defaultValues={defaultBadge}
           onUpdate={handleUpdate}
           onCancel={() => setDefault(undefined)}
+        />
+      )}
+      {isDialogOpen && (
+        <SubmissionsDialog
+          isOpen={isDialogOpen}
+          submissions={submissions}
+          onClose={() => setDialogOpen(false)}
+          onReview={onSubmissionReview}
         />
       )}
     </Card>
