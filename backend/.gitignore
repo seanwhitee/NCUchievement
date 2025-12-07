@@ -1,0 +1,12 @@
+node_modules/
+package-lock.json
+
+# Distribution / build files
+dist/
+*.zip
+
+# Environment variables
+.env
+
+# IDE
+.vscode/

@@ -1,0 +1,28 @@
+{
+  "name": "ncuchievement-backend",
+  "version": "1.0.0",
+  "description": "NCUchievement Backend Lambda Functions",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "package": "npm run build && node scripts/create-zip.js",
+    "clean": "node scripts/clean.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.705.0",
+    "@aws-sdk/client-s3": "^3.705.0",
+    "@aws-sdk/lib-dynamodb": "^3.705.0",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.10.2",
+    "archiver": "^7.0.1",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2"
+  }
+}
