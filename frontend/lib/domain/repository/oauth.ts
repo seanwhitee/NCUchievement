@@ -7,10 +7,6 @@ import { User } from "../entity/user";
 const baseUrl = `${BACKEND_BASE_URL}/api/auth`;
 
 export const oauthRepo = {
-  login: async () => {
-    const [, err] = await tryCatch(() => fetchWithAuth(`${baseUrl}/login`));
-    if (err) throw err;
-  },
   me: async (): Promise<User> => {
     // TODO: remove mock data after api integration
     // const [data, err] = await tryCatch<UserOutput>(() =>
