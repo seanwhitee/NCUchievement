@@ -25,7 +25,7 @@ export const SigninForm = () => {
       <CardContent>
         <Button
           className="w-full"
-          onClick={() => router.push(`${BACKEND_BASE_URL}/api/auth/login`)}
+          onClick={() => router.push(`${BACKEND_BASE_URL}/auth/login`)}
         >
           Sign in with Portal
         </Button>
