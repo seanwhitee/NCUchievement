@@ -122,6 +122,6 @@ async function handleGet(event: APIGatewayProxyEvent, submissionId: string): Pro
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ submission }),
+    body: JSON.stringify(submission),
   };
 }
