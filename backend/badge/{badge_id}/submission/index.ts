@@ -131,6 +131,7 @@ async function handlePost(event: APIGatewayProxyEvent, badgeId: string): Promise
       badge_id: badgeId,
       file: s3Key ? `s3://ncuchievement-submission-upload/${s3Key}` : "",
       description: description,
+      reviewer: 0,
     },
   });
 
@@ -141,10 +142,10 @@ async function handlePost(event: APIGatewayProxyEvent, badgeId: string): Promise
     body: JSON.stringify({
       submission_id: submissionId,
       user_id: tokenData.id,
-      reviewer: 0,
       badge_id: badgeId,
       file: s3Key ? `s3://ncuchievement-submission-upload/${s3Key}` : "",
       description: description,
+      reviewer: 0,
     }),
   };
 }

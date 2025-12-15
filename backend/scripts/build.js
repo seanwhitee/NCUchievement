@@ -14,6 +14,16 @@ const functions = [
     entry: "./submission/{submission_id}/index.ts",
     output: "./dist/submission-handler/index.js",
   },
+  {
+    name: "review-random",
+    entry: "./review/random/index.ts",
+    output: "./dist/review-random/index.js",
+  },
+  {
+    name: "review-submission",
+    entry: "./review/{submission_id}/index.ts",
+    output: "./dist/review-submission/index.js",
+  },
 ];
 
 console.log("📦 Building Lambda functions with esbuild...\n");
