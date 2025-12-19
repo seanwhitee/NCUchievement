@@ -72,7 +72,7 @@ const UpdateBadgeDialog = ({
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle>Create Badge</DialogTitle>
+          <DialogTitle>Update Badge</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form

@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 import { SelectField } from "./react-hook-form/SelectField";
-import { useEffect } from "react";
 
 const schema = z.object({
   approved: z.boolean(),

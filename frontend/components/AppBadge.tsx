@@ -51,7 +51,7 @@ const AppBadge = ({
 
   return (
     <Card className="w-full max-w-sm">
-      <CardHeader className="flex items-center">
+      <CardHeader>
         <Tooltip>
           <TooltipTrigger asChild>
             <CardTitle className="truncate">{name}</CardTitle>
