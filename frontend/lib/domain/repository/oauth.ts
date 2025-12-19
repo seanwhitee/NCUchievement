@@ -11,6 +11,12 @@ export const oauthRepo = {
     const [, err] = await tryCatch(() => fetchWithAuth(`${baseUrl}/login`));
     if (err) throw err;
   },
+  logout: async () => {
+    const [, err] = await tryCatch(() =>
+      fetchWithAuth(`${baseUrl}/logout`, { method: "POST" })
+    );
+    if (err) throw err;
+  },
   me: async (): Promise<User> => {
     // TODO: remove mock data after api integration
     // const [data, err] = await tryCatch<UserOutput>(() =>

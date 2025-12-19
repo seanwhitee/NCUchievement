@@ -1,10 +1,12 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "@/redux/user/userSlice";
+import badgeReducer from "@/redux/badge/badgeSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    badge: badgeReducer,
   },
 });
 
