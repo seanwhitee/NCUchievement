@@ -1,26 +1,15 @@
 import { Submission } from "./submission";
 
-<<<<<<< HEAD
 export interface Badge {
-  badgeId: string;
-  collectionName: string;
-  name: string;
-  badgeUrl: string;
-  description: string;
-  type: string[];
-  submissionStatus: number; //  (0: no submission, 1: under review, 2: accepted, 3: rejected)
-  submissionId: string;
-}
-=======
-export type Badge = {
   badgeId: string;
   collectionName: string;
   name: string;
   file: string;
   description: string;
   type: string[];
-};
->>>>>>> origin/main
+  submissionStatus: number; //  (0: no submission, 1: under review, 2: accepted, 3: rejected)
+  submissionId: string;
+}
 
 export type BadgeWithSubmissions = Badge & {
   submissions: Submission[];

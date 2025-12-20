@@ -5,6 +5,8 @@ export type BadgeOutput = {
   file: string;
   description: string;
   type: string[]; // (submission file types)
+  submission_status: number;
+  submission_id: string;
 };
 
 export type CreateBadgeInput = {
