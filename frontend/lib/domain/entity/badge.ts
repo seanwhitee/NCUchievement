@@ -4,7 +4,7 @@ export type Badge = {
   badgeId: string;
   collectionName: string;
   name: string;
-  badgeUrl: string;
+  file: string;
   description: string;
   type: string[];
 };

@@ -2,7 +2,7 @@ export type BadgeOutput = {
   badge_id: string;
   collection_name: string;
   name: string;
-  badge_url: string;
+  file: string;
   description: string;
   type: string[]; // (submission file types)
 };

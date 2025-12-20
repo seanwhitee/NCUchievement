@@ -36,7 +36,7 @@ const AppBadge = ({
   onSubmissionReview,
   ...rest
 }: BadgeProps) => {
-  const { name, description, badgeUrl, type, submissions } = rest;
+  const { name, description, file, type, submissions } = rest;
 
   const [defaultBadge, setDefault] = useState<undefined | FormValues>(
     undefined
@@ -92,7 +92,7 @@ const AppBadge = ({
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-3">
-        <Image src={badgeUrl} alt="badge-pic" width={100} height={100} />
+        <Image src={file} alt="badge-pic" width={100} height={100} />
         <Tooltip>
           <TooltipTrigger asChild>
             <p className="w-full text-center truncate">{description}</p>

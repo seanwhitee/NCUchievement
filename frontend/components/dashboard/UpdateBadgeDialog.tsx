@@ -124,7 +124,7 @@ const UpdateBadgeDialog = ({
                 Cancel
               </Button>
               <Button type="submit" disabled={isDisabled}>
-                Create
+                Update
               </Button>
             </DialogFooter>
           </form>

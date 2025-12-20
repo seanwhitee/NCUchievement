@@ -66,11 +66,10 @@ export const badgeRepo = {
     };
   },
   toEntity: (output: BadgeOutput): Badge => {
-    const { badge_id, collection_name, badge_url, ...rest } = output;
+    const { badge_id, collection_name, ...rest } = output;
     return {
       badgeId: badge_id,
       collectionName: collection_name,
-      badgeUrl: badge_url,
       ...rest,
     };
   },

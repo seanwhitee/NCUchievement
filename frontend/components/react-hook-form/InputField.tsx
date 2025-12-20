@@ -29,8 +29,12 @@ export function InputField<T extends FieldValues, V = string>({
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const blobUrl = URL.createObjectURL(file);
-    field.onChange(blobUrl);
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      const blob = reader.result;
+      field.onChange(blob);
+    };
+    reader.readAsDataURL(file);
   };
   return (
     <FormField
