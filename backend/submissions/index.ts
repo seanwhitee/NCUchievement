@@ -14,6 +14,7 @@ interface SubmissionResponse {
   reviewer: number;
   file: string;
   description: string;
+  status: number;
 }
 
 /**
@@ -106,6 +107,7 @@ async function handleGet(event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
     reviewer: item.reviewer || 0,
     file: item.file,
     description: item.description,
+    status: item.status,
   }));
 
   return {

@@ -132,6 +132,7 @@ async function handlePost(event: APIGatewayProxyEvent, badgeId: string): Promise
       file: s3Key ? `https://ncuchievement-submission-upload.s3.us-east-2.amazonaws.com/${s3Key}` : "",
       description: description,
       reviewer: 0,
+      status: 0, // Pending
     },
   });
 
@@ -146,6 +147,7 @@ async function handlePost(event: APIGatewayProxyEvent, badgeId: string): Promise
       file: s3Key ? `https://ncuchievement-submission-upload.s3.us-east-2.amazonaws.com/${s3Key}` : "",
       description: description,
       reviewer: 0,
+      status: 0,
     }),
   };
 }

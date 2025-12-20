@@ -89,8 +89,6 @@ async function handlePost(event: APIGatewayProxyEvent, submissionId: string): Pr
     };
   }
 
-  // TODO: Admin check
-
   // Fetch the submission to verify it exists
   // review_id is PK but we don't have, submission_id is GSI, so we query by it, also check the reviewer_user_id
   const queryParams = {
@@ -107,37 +105,40 @@ async function handlePost(event: APIGatewayProxyEvent, submissionId: string): Pr
   const queryCommand = new QueryCommand(queryParams);
   const queryResult = await dynamodb.send(queryCommand);
 
-  if (!queryResult.Items || queryResult.Items.length === 0) {
-    return {
-      statusCode: 404,
-      body: JSON.stringify({ message: "Submission not found or access denied" }),
+  // Admin check
+  if (tokenData.role_id !== 1) {
+    if (!queryResult.Items || queryResult.Items.length === 0) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ message: "Submission not found or access denied" }),
+      };
+    }
+
+    if (queryResult.Items[0].status !== 0) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: "Submission has already been reviewed" }),
+      };
+    }
+
+    // Update the review status
+    const updateParams = {
+      TableName: "reviews",
+      Key: { review_id: queryResult.Items[0].review_id },
+      UpdateExpression: "SET #status = :isApproved, reviewed_at = :reviewedAt",
+      ExpressionAttributeNames: {
+        "#status": "status",
+      },
+      ExpressionAttributeValues: {
+        ":isApproved": isApproved ? 1 : 2,
+        ":reviewedAt": new Date().toISOString(),
+      },
+      ReturnValues: "ALL_NEW" as const,
     };
+
+    const updateCommand = new UpdateCommand(updateParams);
+    const updateResult = await dynamodb.send(updateCommand);
   }
-
-  if (queryResult.Items[0].status !== 0) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ message: "Submission has already been reviewed" }),
-    };
-  }
-
-  // Update the review status
-  const updateParams = {
-    TableName: "reviews",
-    Key: { review_id: queryResult.Items[0].review_id },
-    UpdateExpression: "SET #status = :isApproved, reviewed_at = :reviewedAt",
-    ExpressionAttributeNames: {
-      "#status": "status",
-    },
-    ExpressionAttributeValues: {
-      ":isApproved": isApproved ? 1 : 2,
-      ":reviewedAt": new Date().toISOString(),
-    },
-    ReturnValues: "ALL_NEW" as const,
-  };
-
-  const updateCommand = new UpdateCommand(updateParams);
-  const updateResult = await dynamodb.send(updateCommand);
 
   // Update submission status in submissions table
   const submissionUpdateParams = {
@@ -165,6 +166,7 @@ async function handlePost(event: APIGatewayProxyEvent, submissionId: string): Pr
       description: submission?.description,
       file: submission?.file,
       reviewer: submission?.reviewer,
+      status: submission?.status,
     }),
   };
 }
