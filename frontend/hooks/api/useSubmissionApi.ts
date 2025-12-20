@@ -15,15 +15,6 @@ export const useSubmissionApi = () => {
   );
 
   const {
-    data: randomSubmissions,
-    isLoading: getRandomLoading,
-    error: getRandomError,
-    mutate: mutateRandomSubmissions,
-  } = useSWR("submissionRepo.getRandomSubmissions", () =>
-    submissionRepo.getRandomSubmissions()
-  );
-
-  const {
     trigger: review,
     isMutating: reviewLoading,
     error: reviewError,
@@ -37,24 +28,19 @@ export const useSubmissionApi = () => {
     if (getError) toast({ title: "Get submissions error", type: "error" });
     if (reviewError)
       toast({ title: "Review submissions error", type: "error" });
-    if (getRandomError)
-      toast({ title: "Get random submissions error", type: "error" });
-  }, [getError, reviewError, getRandomError]);
+  }, [getError, reviewError]);
 
   return {
     query: {
       submissions,
-      randomSubmissions,
     },
     mutation: {
       review,
       mutateSubmissions,
-      mutateRandomSubmissions,
     },
     loading: {
       getLoading,
       reviewLoading,
-      getRandomLoading,
     },
   };
 };

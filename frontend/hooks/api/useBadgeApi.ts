@@ -15,20 +15,6 @@ export const useBadgeApi = () => {
   } = useSWR("badgeRepo.getBadges", () => badgeRepo.getBadges());
 
   const {
-    trigger: submit,
-    isMutating: submitLoading,
-    error: submitError,
-  } = useSWRMutation(
-    "badgeRepo.submit",
-    (
-      _,
-      {
-        arg,
-      }: { arg: { badgeId: string; description: string; fileBase64: string } }
-    ) => badgeRepo.submit(arg.badgeId, arg.description, arg.fileBase64)
-  );
-
-  const {
     trigger: createBadge,
     isMutating: createLoading,
     error: createError,
@@ -62,8 +48,7 @@ export const useBadgeApi = () => {
     if (createError) toast({ type: "error", title: "Create badge error" });
     if (updateError) toast({ type: "error", title: "Update badge error" });
     if (deleteError) toast({ type: "error", title: "Delete badge error" });
-    if (submitError) toast({ type: "error", title: "Submit badge error" });
-  }, [getBadgesError, createError, updateError, deleteError, submitError]);
+  }, [getBadgesError, createError, updateError, deleteError]);
 
   return {
     query: {
@@ -74,14 +59,12 @@ export const useBadgeApi = () => {
       createBadge,
       updateBadge,
       deleteBadge,
-      submit,
     },
     loading: {
       getBadgesLoading,
       createLoading,
       updateLoading,
       deleteLoading,
-      submitLoading,
     },
   };
 };

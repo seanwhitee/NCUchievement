@@ -1,4 +1,6 @@
+import { BACKEND_BASE_URL } from "@/lib/env";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { tryCatch } from "@/utils/tryCatch";
 import {
   BadgeOutput,
   CreateBadgeInput,
@@ -91,6 +93,15 @@ export const badgeRepo = {
     });
     if (err) throw err;
     return data;
+import { Badge, CreateBadge, DeleteResponse } from "../entity/badge";
+
+export const badgeRepo = {
+  getBadges: async (): Promise<Badge[]> => {
+    const [badges, err] = await tryCatch<BadgeOutput[]>(() =>
+      fetchWithAuth(`${BACKEND_BASE_URL}/badges`)
+    );
+    if (err) throw err;
+    return badges!.map(badgeRepo.toEntity);
   },
   createBadge: async (entity: CreateBadge): Promise<Badge> => {
     const { collectionName, ...rest } = entity;
@@ -110,7 +121,7 @@ export const badgeRepo = {
     );
 
     if (err) throw err;
-    return badgeRepo.mapToEntity(data!);
+    return badgeRepo.toEntity(data!);
   },
   updateBadge: async (id: string, input: UpdateBadgeInput): Promise<Badge> => {
     const [data, err] = await tryCatch<BadgeOutput>(() =>
@@ -124,7 +135,7 @@ export const badgeRepo = {
     );
     if (err) throw err;
 
-    return badgeRepo.mapToEntity(data!);
+    return badgeRepo.toEntity(data!);
   },
   delete: async (id: string): Promise<DeleteResponse> => {
     const [data, err] = await tryCatch<DeleteOutput>(() =>
@@ -140,22 +151,11 @@ export const badgeRepo = {
       badgeId: data!.badge_id,
     };
   },
-
-  mapToEntity: (output: BadgeOutput): Badge => {
-    const {
-      badge_id,
-      collection_name,
-      badge_url,
-      submission_id,
-      submission_status,
-      ...rest
-    } = output;
+  toEntity: (output: BadgeOutput): Badge => {
+    const { badge_id, collection_name, ...rest } = output;
     return {
       badgeId: badge_id,
       collectionName: collection_name,
-      badgeUrl: badge_url,
-      submissionId: submission_id,
-      submissionStatus: submission_status,
       ...rest,
     };
   },
