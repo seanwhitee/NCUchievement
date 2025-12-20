@@ -83,7 +83,9 @@ async function handleGet(event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
 
   let submission;
 
-  while (true) {
+  let i = 0;
+  while (i < 5) {
+    i++;
     const scanCommand = new ScanCommand(scanParams);
     const result = await dynamodb.send(scanCommand);
 
@@ -117,6 +119,14 @@ async function handleGet(event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
     // Update ExclusiveStartKey to continue scanning
     scanParams.ExclusiveStartKey = {
       submission_id: submission.submission_id,
+    };
+  }
+
+  // If no suitable submission found after 5 attempts
+  if (!submission) {
+    return {
+      statusCode: 404,
+      body: JSON.stringify({ message: "No submissions available for review" }),
     };
   }
 
