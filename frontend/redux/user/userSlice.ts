@@ -3,9 +3,9 @@ import { RootState } from "../store";
 import { User } from "@/lib/domain/entity/user";
 
 const initialUser: User = {
-  userId: "",
+  id: "",
   roleId: 0,
-  username: "",
+  chineseName: "",
   name: "",
 };
 

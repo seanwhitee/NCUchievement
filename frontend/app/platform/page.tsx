@@ -2,19 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/redux/hooks/useAppSelector";
+import { selectUser } from "@/redux/user/userSlice";
 import { List, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const PlatformPage = () => {
-  const userName = useAppSelector((state) => state.user.username);
+  const user = useAppSelector(selectUser);
   const router = useRouter();
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-[80vh] text-center p-6">
         <p className="text-gray-900 dark:text-white text-3xl md:text-5xl font-black font-serif leading-tight tracking-[-0.033em]">
-          Welcome back, {userName}
+          Welcome back, {user.chineseName}
         </p>
         <br />
         <p className="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">

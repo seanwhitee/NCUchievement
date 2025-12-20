@@ -12,6 +12,7 @@ import { SubmissionView } from "./SubmissionViewer";
 import { cn } from "@/lib/utils";
 import { Badge as UIBadge } from "../ui/badge";
 import { FireworksBackground } from "../animate-ui/components/backgrounds/fireworks";
+import Image from "next/image";
 
 export const BadgeModal = ({
   badge,
@@ -70,7 +71,13 @@ export const BadgeModal = ({
 
           <div className="flex items-center gap-4 relative z-10">
             <div className="p-3 rounded-2xl bg-white/50 dark:bg-black/30 backdrop-blur-sm border border-white/20 shadow-sm">
-              <StatusIcon size={36} className="text-gray-800 dark:text-white" />
+              {/* <StatusIcon size={36} className="text-gray-800 dark:text-white" /> */}
+              <Image
+                src={badge.file}
+                alt="badge image"
+                width={40}
+                height={40}
+              />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
@@ -98,6 +105,7 @@ export const BadgeModal = ({
             <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
               Challenge Description
             </h4>
+
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               {badge.description}
             </p>

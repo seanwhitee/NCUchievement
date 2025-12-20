@@ -16,9 +16,9 @@ export const oauthRepo = {
     return oauthRepo.mapToEntity(data!);
   },
   mapToEntity: (data: UserOutput): User => {
-    const { user_id, role_id, ...rest } = data;
+    const { chinese_name, role_id, ...rest } = data;
     return {
-      userId: user_id,
+      chineseName: chinese_name,
       roleId: role_id,
       ...rest,
     };

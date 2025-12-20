@@ -68,32 +68,6 @@ import { Badge, CreateBadge, DeleteResponse } from "../entity/badge";
 //     return mockBadges.map(badgeRepo.mapToEntity);
 //   },
 
-//   submit: async (badgeId: string, description: string, fileBase64: string) => {
-//     // TODO: remove mock data after api integration
-//     // const [data, err] = await tryCatch(() =>
-//     //   fetch(`${baseUrl}/${badgeId}/submission`, {
-//     //     method: "POST",
-//     //     headers: { "Content-Type": "application/json" },
-//     //     body: JSON.stringify({ description, file: fileBase64 }),
-//     //   })
-//     // );
-
-//     const [data, err] = await tryCatch(async () => {
-//       const mockData = {
-//         submissionId: "mockSubmissionId",
-//         userId: "mockUserId",
-//         reviewer: 1, // count of reviewer
-//       };
-
-//       return new Response(JSON.stringify(mockData), {
-//         status: 200,
-//         headers: { "Content-Type": "application/json" },
-//       });
-//     });
-//     if (err) throw err;
-//     return data;
-
-
 export const badgeRepo = {
   getBadges: async (): Promise<Badge[]> => {
     const [badges, err] = await tryCatch<BadgeOutput[]>(() =>
@@ -101,6 +75,31 @@ export const badgeRepo = {
     );
     if (err) throw err;
     return badges!.map(badgeRepo.toEntity);
+  },
+  submit: async (badgeId: string, description: string, fileBase64: string) => {
+    // TODO: remove mock data after api integration
+    const [data, err] = await tryCatch(() =>
+      fetch(`${BACKEND_BASE_URL}/badge/${badgeId}/submission`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ description, file: fileBase64 }),
+      })
+    );
+
+    // const [data, err] = await tryCatch(async () => {
+    //   const mockData = {
+    //     submissionId: "mockSubmissionId",
+    //     userId: "mockUserId",
+    //     reviewer: 1, // count of reviewer
+    //   };
+
+    //   return new Response(JSON.stringify(mockData), {
+    //     status: 200,
+    //     headers: { "Content-Type": "application/json" },
+    //   });
+    // });
+    // if (err) throw err;
+    // return data;
   },
   createBadge: async (entity: CreateBadge): Promise<Badge> => {
     const { collectionName, ...rest } = entity;
@@ -151,12 +150,18 @@ export const badgeRepo = {
     };
   },
   toEntity: (output: BadgeOutput): Badge => {
-    const { badge_id, collection_name, submission_status,submission_id, ...rest } = output;
+    const {
+      badge_id,
+      collection_name,
+      submission_status,
+      submission_id,
+      ...rest
+    } = output;
     return {
       badgeId: badge_id,
       collectionName: collection_name,
-submissionStatus:submission_status,
-submissionId:submission_id,
+      submissionStatus: submission_status,
+      submissionId: submission_id,
       ...rest,
     };
   },

@@ -18,9 +18,10 @@ import { Badge as UIBadge } from "../../../components/ui/badge";
 import { Badge } from "@/lib/domain/entity/badge";
 import { Label } from "@radix-ui/react-label";
 import { Card, CardContent } from "@/components/ui/card";
-import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
+// import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
 import { Button } from "@/components/ui/button";
 import { ReviewCard } from "@/components/review/ReviewCard";
+import { useReviewApi } from "@/hooks/api/useReviewApi";
 
 const ReviewPage = () => {
   const badges = useAppSelector(selectBadges);
@@ -28,7 +29,7 @@ const ReviewPage = () => {
     query: { randomSubmissions },
     mutation: { review, mutateRandomSubmissions },
     loading: { getRandomLoading, reviewLoading },
-  } = useSubmissionApi();
+  } = useReviewApi();
 
   const [selectedId, setSelectedId] = useState<string>("");
   const selectedSubmission = randomSubmissions?.find(

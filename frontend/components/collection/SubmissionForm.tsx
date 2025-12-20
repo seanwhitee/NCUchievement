@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Label } from "../ui/label";
 import { FileUpload } from "../ui/file-upload";
 import { Textarea } from "../ui/textarea";
-import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
 import { useBadgeApi } from "@/hooks/api/useBadgeApi";
 
 export const SubmissionForm = ({
