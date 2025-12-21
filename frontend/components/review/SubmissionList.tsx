@@ -22,7 +22,7 @@ export const SubmissionList = ({
   };
 
   return (
-    <div className="w-1/5 border-r border-gray-200 dark:border-gray-800  bg-white flex flex-col dark:bg-black ">
+    <div className="w-1/5 border-r border-gray-200 bg-white flex flex-col dark:bg-black ">
       <div className="p-5 border-b border-gray-100 dark:border-gray-800 ">
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
           Review{" "}

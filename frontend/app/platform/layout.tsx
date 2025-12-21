@@ -5,18 +5,21 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { useBadgeApi } from "@/hooks/api/useBadgeApi";
 import { useUserApi } from "@/hooks/api/useUserApi";
 import { useAppDispatch } from "@/redux/hooks/useAppDispatch";
-import { update as updateUser } from "@/redux/user/userSlice";
+import { selectUser, update as updateUser } from "@/redux/user/userSlice";
 import { update as updataBadges } from "@/redux/badge/badgeSlice";
 import React, { useEffect } from "react";
+import { useAppSelector } from "@/redux/hooks/useAppSelector";
 
 const PlatformLayout = ({ children }: { children: React.ReactNode }) => {
   const {
     query: { currentUser },
   } = useUserApi();
 
+  const user = useAppSelector(selectUser);
+
   const {
     query: { badges },
-  } = useBadgeApi();
+  } = useBadgeApi(user.id);
 
   const dispatch = useAppDispatch();
 

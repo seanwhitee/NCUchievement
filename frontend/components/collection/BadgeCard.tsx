@@ -36,12 +36,16 @@ export const BadgeCard = ({ badge, handleSubmit, status }: Props) => {
     >
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-3 flex-1">
-          {/* <StatusIcon
-            className={`w-5 h-5 ${
-              isCompleted ? "text-emerald-500" : "text-slate-400"
-            }`}
-          /> */}
-          <Image src={badge.file} alt="badge image" width={36} height={36} />
+          {badge.file ? (
+            <Image src={badge.file} alt="badge image" width={36} height={36} />
+          ) : (
+            <StatusIcon
+              className={`w-5 h-5 ${
+                isCompleted ? "text-emerald-500" : "text-slate-400"
+              }`}
+            />
+          )}
+
           <span
             className={`dark:text-white ${
               isCompleted ? "text-slate-900" : "text-slate-700"

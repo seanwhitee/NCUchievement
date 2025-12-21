@@ -6,8 +6,11 @@ import Link from "next/link";
 import logo from "./logo.png";
 import ThemeToggle from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { BACKEND_BASE_URL } from "@/lib/env";
 
 export const NavigationBar = () => {
+  const router = useRouter();
   const navItems = [
     {
       name: "Home",
@@ -59,7 +62,7 @@ export const NavigationBar = () => {
             <ThemeToggle />
             <Button
               className="hidden sm:inline-flex"
-              onClick={() => oauthRepo.logout()}
+              onClick={() => router.push(`${BACKEND_BASE_URL}/auth/logout`)}
             >
               Log out
             </Button>

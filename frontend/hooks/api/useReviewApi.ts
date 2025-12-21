@@ -1,8 +1,10 @@
 import { toast } from "@/components/AppToast";
+import { Submission } from "@/lib/domain/entity/submission";
 import { submissionRepo } from "@/lib/domain/repository/submission";
 import { useEffect } from "react";
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
+import useSWRImmutable from "swr/immutable";
 
 export const useReviewApi = () => {
   const {
@@ -10,7 +12,7 @@ export const useReviewApi = () => {
     isLoading: getRandomLoading,
     error: getRandomError,
     mutate: mutateRandomSubmissions,
-  } = useSWR("submissionRepo.getRandomSubmissions", () =>
+  } = useSWRImmutable("submissionRepo.getRandomSubmissions", () =>
     submissionRepo.getRandomSubmissions()
   );
 

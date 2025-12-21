@@ -69,9 +69,9 @@ import { Badge, CreateBadge, DeleteResponse } from "../entity/badge";
 //   },
 
 export const badgeRepo = {
-  getBadges: async (): Promise<Badge[]> => {
+  getBadges: async (userId: string): Promise<Badge[]> => {
     const [badges, err] = await tryCatch<BadgeOutput[]>(() =>
-      fetchWithAuth(`${BACKEND_BASE_URL}/badges`)
+      fetchWithAuth(`${BACKEND_BASE_URL}/badges?user_id=${userId}`)
     );
     if (err) throw err;
     return badges!.map(badgeRepo.toEntity);

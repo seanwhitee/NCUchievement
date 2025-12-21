@@ -5,6 +5,8 @@ import { Label } from "../ui/label";
 import { FileUpload } from "../ui/file-upload";
 import { Textarea } from "../ui/textarea";
 import { useBadgeApi } from "@/hooks/api/useBadgeApi";
+import { toast } from "@/components/AppToast";
+import { types } from "util";
 
 export const SubmissionForm = ({
   badge,
@@ -34,10 +36,18 @@ export const SubmissionForm = ({
     loading: { submitLoading },
   } = useBadgeApi();
 
+  function getDataTypeFromBase64(dataUrl: string): string | null {
+    const match = dataUrl.match(/^data:([^;]+);base64,/);
+    return match ? match[1] : null;
+  }
+
   const handleFileUpload = async (selectedFile: File) => {
     try {
       const base64Result = await convertFileToBase64(selectedFile);
-      setFileBase64(base64Result);
+      const type = getDataTypeFromBase64(base64Result);
+      console.log(type);
+      if (type?.startsWith(badge.type[0]) || type?.startsWith(badge.type[1]))
+        setFileBase64(base64Result);
     } catch (error) {
       console.error("Base64 conversion failed:", error);
     }
@@ -45,7 +55,11 @@ export const SubmissionForm = ({
 
   const handleSubmit = async () => {
     if (!fileBase64 || !submitDescription) {
-      alert("Please provide both a description and a file.");
+      // alert("Please provide both a description and a file.");
+      toast({
+        title: "Please provide both a description and a file.",
+        type: "warning",
+      });
       return;
     }
     try {
@@ -59,7 +73,11 @@ export const SubmissionForm = ({
       onClose();
     } catch (error) {
       console.error("Submission error:", error);
-      alert("Failed to submit. Please try again.");
+      // alert("Failed to submit. Please try again.");
+      toast({
+        title: "Failed to submit. Please try again.",
+        type: "error",
+      });
     }
   };
   return (

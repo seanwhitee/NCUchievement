@@ -1,27 +1,12 @@
 "use client";
 
-import { toast } from "@/components/AppToast";
 import { SubmissionList } from "@/components/review/SubmissionList";
-import { Submission } from "@/lib/domain/entity/submission";
-import { submissionRepo } from "@/lib/domain/repository/submission";
 import { selectBadges } from "@/redux/badge/badgeSlice";
 import { useAppSelector } from "@/redux/hooks/useAppSelector";
-import {
-  CheckCircle,
-  ChevronRight,
-  Clock,
-  FileText,
-  XCircle,
-} from "lucide-react";
-import { SetStateAction, useEffect, useState } from "react";
-import { Badge as UIBadge } from "../../../components/ui/badge";
-import { Badge } from "@/lib/domain/entity/badge";
-import { Label } from "@radix-ui/react-label";
-import { Card, CardContent } from "@/components/ui/card";
-// import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
 import { Button } from "@/components/ui/button";
 import { ReviewCard } from "@/components/review/ReviewCard";
 import { useReviewApi } from "@/hooks/api/useReviewApi";
+import { useState } from "react";
 
 const ReviewPage = () => {
   const badges = useAppSelector(selectBadges);
@@ -40,10 +25,13 @@ const ReviewPage = () => {
   };
 
   if (!randomSubmissions || randomSubmissions.length === 0) {
+    // console.log(randomSubmissions)
     return (
-      <div>
+      <div className="flex items-center">
         No more pending submissions
-        <Button onClick={() => mutateRandomSubmissions()}>Try again</Button>
+        <Button className="ml-5" onClick={() => mutateRandomSubmissions()}>
+          Try again
+        </Button>
       </div>
     );
   }

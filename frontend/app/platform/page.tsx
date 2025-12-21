@@ -38,41 +38,6 @@ const PlatformPage = () => {
             Review submissions
           </Button>
         </div>
-        {/* --- Feature Description Section --- */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20 px-4">
-          {[
-            {
-              icon: <List className="w-8 h-8 text-blue-500" />,
-              title: "Explore Campus",
-              desc: "From the pine cones on the lawn to the late-night snacks at the back door. Discover hidden tasks around NCU.",
-            },
-            {
-              icon: <Trophy className="w-8 h-8 text-yellow-500" />,
-              title: "Earn Badges",
-              desc: "Turn your routines into achievements. Collect unique badges to showcase your campus survival skills.",
-            },
-            {
-              icon: <Users className="w-8 h-8 text-purple-500" />,
-              title: "Community Driven",
-              desc: "A peer-to-peer verification system. Help validate other students' achievements and keep the fairness.",
-            },
-          ].map((feature, idx) => (
-            <div
-              key={idx}
-              className="bg-white/50 dark:bg-gray-800/40 backdrop-blur-sm border border-gray-200 dark:border-gray-700 p-8 rounded-2xl text-left hover:bg-white dark:hover:bg-gray-800 transition duration-300"
-            >
-              <div className="mb-4 bg-gray-100 dark:bg-gray-700/50 w-14 h-14 rounded-lg flex items-center justify-center">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                {feature.desc}
-              </p>
-            </div>
-          ))}
-        </div> */}
       </div>
     </>
   );

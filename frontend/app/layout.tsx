@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "NCUChievement",
   description: "Badge collecting platform for NCU",
   icons: {
-    icon: "/icon.png",
+    icon: "./icon.png",
   },
 };
 

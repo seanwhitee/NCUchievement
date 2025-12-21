@@ -71,13 +71,16 @@ export const BadgeModal = ({
 
           <div className="flex items-center gap-4 relative z-10">
             <div className="p-3 rounded-2xl bg-white/50 dark:bg-black/30 backdrop-blur-sm border border-white/20 shadow-sm">
-              {/* <StatusIcon size={36} className="text-gray-800 dark:text-white" /> */}
-              <Image
-                src={badge.file}
-                alt="badge image"
-                width={40}
-                height={40}
-              />
+              {badge.file ? (
+                <Image
+                  src={badge.file}
+                  alt="badge image"
+                  width={36}
+                  height={36}
+                />
+              ) : (
+                <StatusIcon className="text-slate-400" size={36} />
+              )}
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">

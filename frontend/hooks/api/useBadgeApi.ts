@@ -6,14 +6,15 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import { UpdateBadge } from "../../lib/domain/entity/badge";
 
-export const useBadgeApi = () => {
+export const useBadgeApi = (userId?: string) => {
   const {
     data: badges,
     isLoading: getBadgesLoading,
     error: getBadgesError,
     mutate: mutateBadges,
-  } = useSWR("badgeRepo.getBadges", () => badgeRepo.getBadges());
-
+  } = useSWR(userId ? "badgeRepo.getBadges" : null, () =>
+    badgeRepo.getBadges(userId!)
+  );
   const {
     trigger: submit,
     isMutating: submitLoading,
