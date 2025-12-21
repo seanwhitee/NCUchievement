@@ -17,9 +17,10 @@ export const SigninForm = () => {
         <Image
           src={"/icon.png"}
           alt="app-icon"
-          width={60}
-          height={60}
+          width={100}
+          height={100}
           priority
+          className="bg-none"
         ></Image>
       </CardHeader>
       <CardContent>
