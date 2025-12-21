@@ -102,24 +102,6 @@ async function handleGet(event: APIGatewayProxyEvent, submissionId: string): Pro
     };
   }
 
-  // Check review status
-  // Table PK is review_id, submission_id is index. Each submission has at most one review. we need the count of items.
-
-  const getReviewParams = {
-    TableName: "reviews",
-    IndexName: "submission_id",
-    KeyConditionExpression: "submission_id = :submission_id",
-    ExpressionAttributeValues: {
-      ":submission_id": submissionId,
-    },
-    Select: "COUNT" as const,
-  };
-
-  const queryCommand = new QueryCommand(getReviewParams);
-  const reviewResult = await dynamodb.send(queryCommand);
-
-  submission.reviewer = (reviewResult.Count || 0);
-
   return {
     statusCode: 200,
     body: JSON.stringify(submission),
