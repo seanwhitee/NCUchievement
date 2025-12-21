@@ -14,6 +14,8 @@ import CreateBadgeDialog, {
 import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
 import { Submission } from "@/lib/domain/entity/submission";
 import { toast } from "@/components/AppToast";
+import { useAppSelector } from "@/redux/hooks/useAppSelector";
+import { selectUser } from "@/redux/user/userSlice";
 
 const createDefaultValues: FormValues = {
   collectionName: "",
@@ -22,11 +24,13 @@ const createDefaultValues: FormValues = {
   name: "",
   type: [],
 };
+
 const BadgesPage = () => {
+  const currentUser = useAppSelector(selectUser);
   const {
     query: { badges },
     mutation: { mutateBadges, createBadge, updateBadge, deleteBadge },
-  } = useBadgeApi();
+  } = useBadgeApi(currentUser.id);
 
   const {
     query: { submissions },

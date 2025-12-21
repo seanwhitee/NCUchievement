@@ -39,7 +39,7 @@ const NavigationDrawer = (props: DrawerProps) => {
         animate={{ x: 0 }}
         exit={{ x: "-100%" }}
         transition={{ type: "spring", stiffness: 100, damping: 18 }}
-        className="px-2 py-2.5 fixed z-20 left-0 top-0 bg-neutral-100 w-full md:w-3xs h-screen shadow-sm"
+        className="px-2 py-2.5 fixed z-51 left-0 top-0 bg-neutral-100 w-full md:w-3xs h-screen shadow-sm"
       >
         <Header heading={heading} onToggle={onToggle} />
         <div className="w-full flex flex-col gap-2">
