@@ -55,8 +55,8 @@ export const BadgeModal = ({
         className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300"
         onClick={onClose}
       >
-        {isAccpted && (
-          <FireworksBackground fireworkSpeed={30} particleSpeed={7} />
+        {isAccpted && showFirework && (
+          <FireworksBackground fireworkSpeed={10} particleSpeed={7} />
         )}
       </div>
 

@@ -1,12 +1,12 @@
 import { Badge } from "@/lib/domain/entity/badge";
-import { badgeRepo } from "@/lib/domain/repository/badge";
 import { useState } from "react";
 import { Label } from "../ui/label";
 import { FileUpload } from "../ui/file-upload";
 import { Textarea } from "../ui/textarea";
 import { useBadgeApi } from "@/hooks/api/useBadgeApi";
 import { toast } from "@/components/AppToast";
-import { types } from "util";
+import { useReducedMotionConfig } from "motion/react";
+import { useRef } from "react";
 
 export const SubmissionForm = ({
   badge,
@@ -16,6 +16,7 @@ export const SubmissionForm = ({
   onClose: () => void;
 }) => {
   const [submitDescription, setSubmitDescription] = useState("");
+  const expectedType = badge.type.map((type) => type.replace("/*", ""));
 
   const convertFileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -36,18 +37,23 @@ export const SubmissionForm = ({
     loading: { submitLoading },
   } = useBadgeApi();
 
-  function getDataTypeFromBase64(dataUrl: string): string | null {
-    const match = dataUrl.match(/^data:([^;]+);base64,/);
-    return match ? match[1] : null;
+  const isValidType = useRef(false);
+  function checkIsValidFileType(file: File) {
+    isValidType.current = badge.type.some((t) =>
+      file.type.startsWith(t.replace("/*", "/"))
+    );
   }
 
   const handleFileUpload = async (selectedFile: File) => {
     try {
       const base64Result = await convertFileToBase64(selectedFile);
-      const type = getDataTypeFromBase64(base64Result);
-      console.log(type);
-      if (type?.startsWith(badge.type[0]) || type?.startsWith(badge.type[1]))
-        setFileBase64(base64Result);
+      setFileBase64(base64Result);
+      checkIsValidFileType(selectedFile);
+      if (!isValidType.current)
+        toast({
+          title: "File type incorrect",
+          type: "warning",
+        });
     } catch (error) {
       console.error("Base64 conversion failed:", error);
     }
@@ -80,6 +86,7 @@ export const SubmissionForm = ({
       });
     }
   };
+
   return (
     <div>
       {/* Textarea */}
@@ -101,6 +108,15 @@ export const SubmissionForm = ({
 
       {/* Upload */}
       <section>
+        <Label
+          htmlFor="message"
+          className="text-sm font-semld text-gray-500 dark:text-gray-400 uppercase ibotracking-wider mt-4"
+        >
+          File Type :{" "}
+          {expectedType.map((type, index) => (
+            <span key={index}>{type}</span>
+          ))}
+        </Label>
         <div className="w-full max-w-4xl h-48 mt-4 overflow-y-auto mx-auto border border-dashed rounded-xl border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-zinc-800/40 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
           <FileUpload onChange={handleFileUpload} />
         </div>
@@ -118,7 +134,7 @@ export const SubmissionForm = ({
         <button
           className="px-6 py-2.5 rounded-xl font-semibold bg-gray-800 text-white hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200 shadow-md shadow-blue-500/30 transition active:scale-95"
           onClick={handleSubmit}
-          disabled={submitLoading}
+          disabled={submitLoading || !isValidType}
         >
           Submit
         </button>

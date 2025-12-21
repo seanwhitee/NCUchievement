@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { ReviewCard } from "@/components/review/ReviewCard";
 import { useReviewApi } from "@/hooks/api/useReviewApi";
 import { useState } from "react";
+import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
+import { Spinner } from "@/components/ui/spinner";
+import { Loading } from "@/components/review/Loading";
 
 const ReviewPage = () => {
   const badges = useAppSelector(selectBadges);
@@ -23,6 +26,10 @@ const ReviewPage = () => {
   const handleSelect = (id: string) => {
     setSelectedId(id);
   };
+
+  if (getRandomLoading) {
+    return <Loading />;
+  }
 
   if (!randomSubmissions || randomSubmissions.length === 0) {
     // console.log(randomSubmissions)

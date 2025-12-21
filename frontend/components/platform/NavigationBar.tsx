@@ -60,12 +60,12 @@ export const NavigationBar = () => {
               </Link>
             ))}
             <ThemeToggle />
-            <Button
+            {/* <Button
               className="hidden sm:inline-flex"
               onClick={() => router.push(`${BACKEND_BASE_URL}/auth/logout`)}
             >
               Log out
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
