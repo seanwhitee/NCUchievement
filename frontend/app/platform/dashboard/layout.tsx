@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import FunctionPanel from "@/components/FuntionPanel";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks/useAppSelector";
+import { selectUser } from "@/redux/user/userSlice";
 
 const BASE_DASHBOARD_PATH = "/platform/dashboard";
 const DASHBOARD_LINKS: DrawerItemProps[] = [
@@ -24,6 +26,9 @@ export default function DashboardLayout({
   }, [router]);
 
   const [isOpen, setOpen] = useState(true);
+  const currentUser = useAppSelector(selectUser);
+  if (currentUser.roleId !== 1) return <div>Not authorized</div>;
+
   return (
     <div className="px-4 md:px-8">
       <FunctionPanel onToggle={() => setOpen(!isOpen)} />
