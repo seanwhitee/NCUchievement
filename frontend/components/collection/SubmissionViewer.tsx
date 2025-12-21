@@ -1,10 +1,9 @@
 import { Badge } from "@/lib/domain/entity/badge";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
-import { useEffect, useState } from "react";
 import { submissionRepo } from "@/lib/domain/repository/submission";
-import { Card, CardContent } from "../ui/card";
+import { useEffect, useState } from "react";
 import { Badge as UIBadge } from "../ui/badge";
+import { Card, CardContent } from "../ui/card";
+import { Label } from "../ui/label";
 export const SubmissionView = ({ badge }: { badge: Badge }) => {
   const [submitDescription, setSubmitDescription] = useState<string>();
   const [fileUrl, setFileUrl] = useState<string>("");

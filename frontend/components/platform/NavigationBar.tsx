@@ -1,13 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { oauthRepo } from "@/lib/domain/repository/oauth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import logo from "./logo.png";
 import ThemeToggle from "./ThemeToggle";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { BACKEND_BASE_URL } from "@/lib/env";
 
 export const NavigationBar = () => {
   const router = useRouter();

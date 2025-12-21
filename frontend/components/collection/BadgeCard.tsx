@@ -1,10 +1,7 @@
-import { Clock, LucideProps, Trophy, Flag, AlertCircle } from "lucide-react";
 import { Badge } from "@/lib/domain/entity/badge";
-import { Button } from "../ui/button";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { ForwardRefExoticComponent, RefAttributes } from "react";
-import { STATUS_CONFIG, SubmissionStatus } from "./config";
+import { Trophy } from "lucide-react";
+import Image from "next/image";
+import { Badge as UIBadge } from "../ui/badge";
 import {
   Card,
   CardContent,
@@ -12,8 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Badge as UIBadge } from "../ui/badge";
-import Image from "next/image";
+import { STATUS_CONFIG, SubmissionStatus } from "./config";
 
 interface Props {
   badge: Badge;

@@ -1,18 +1,12 @@
 import { Badge } from "@/lib/domain/entity/badge";
-import { BadgeCheckIcon, Trophy, Upload, X } from "lucide-react";
-import { FileUpload } from "../ui/file-upload";
-import { useEffect, useRef, useState } from "react";
-import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
-import { badgeRepo } from "@/lib/domain/repository/badge";
-import { STATUS_CONFIG, SubmissionStatus, ViewMode } from "./config";
-import { SubmissionModeToggle } from "./SubmissionModeToggle";
-import { SubmissionForm } from "./SubmissionForm";
-import { SubmissionView } from "./SubmissionViewer";
-import { cn } from "@/lib/utils";
-import { Badge as UIBadge } from "../ui/badge";
-import { FireworksBackground } from "../animate-ui/components/backgrounds/fireworks";
+import { Trophy, X } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { FireworksBackground } from "../animate-ui/components/backgrounds/fireworks";
+import { STATUS_CONFIG, SubmissionStatus, ViewMode } from "./config";
+import { SubmissionForm } from "./SubmissionForm";
+import { SubmissionModeToggle } from "./SubmissionModeToggle";
+import { SubmissionView } from "./SubmissionViewer";
 
 export const BadgeModal = ({
   badge,

@@ -1,12 +1,10 @@
-import { Badge } from "@/lib/domain/entity/badge";
-import { useState } from "react";
-import { Label } from "../ui/label";
-import { FileUpload } from "../ui/file-upload";
-import { Textarea } from "../ui/textarea";
-import { useBadgeApi } from "@/hooks/api/useBadgeApi";
 import { toast } from "@/components/AppToast";
-import { useReducedMotionConfig } from "motion/react";
-import { useRef } from "react";
+import { useBadgeApi } from "@/hooks/api/useBadgeApi";
+import { Badge } from "@/lib/domain/entity/badge";
+import { useRef, useState } from "react";
+import { FileUpload } from "../ui/file-upload";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
 
 export const SubmissionForm = ({
   badge,

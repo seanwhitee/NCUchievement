@@ -4,7 +4,6 @@ import { CheckCircle, XCircle, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "../ui/card";
 import { Badge as UIBadge } from "../ui/badge";
-// import { useSubmissionApi } from "@/hooks/api/useSubmissionApi";
 import { useReviewApi } from "@/hooks/api/useReviewApi";
 
 interface Props {

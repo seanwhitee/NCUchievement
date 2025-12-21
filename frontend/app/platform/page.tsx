@@ -3,10 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/redux/hooks/useAppSelector";
 import { selectUser } from "@/redux/user/userSlice";
-import { List, Trophy, Users } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 const PlatformPage = () => {
   const user = useAppSelector(selectUser);
