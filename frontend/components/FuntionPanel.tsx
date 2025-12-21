@@ -9,11 +9,8 @@ export interface FunctionPanelProps {
 const FunctionPanel = (props: FunctionPanelProps) => {
   const { onToggle } = props;
   return (
-    <div className="flex items-center justify-start z-10 fixed rounded-lg top-2 left-2 h-10">
-      <Button
-        onClick={onToggle}
-        className="bg-neutral-100 hover:bg-neutral-100/50"
-      >
+    <div className="flex items-center justify-start z-50 fixed rounded-lg top-2 left-2 h-10">
+      <Button onClick={onToggle} className="bg-white hover:bg-white/50">
         <PanelsTopLeft className="text-neutral-900" />
       </Button>
     </div>
