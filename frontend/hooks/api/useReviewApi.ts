@@ -12,8 +12,18 @@ export const useReviewApi = () => {
     isLoading: getRandomLoading,
     error: getRandomError,
     mutate: mutateRandomSubmissions,
-  } = useSWRImmutable("submissionRepo.getRandomSubmissions", () =>
-    submissionRepo.getRandomSubmissions()
+  } = useSWRImmutable(
+    "submissionRepo.getRandomSubmissions",
+    () => submissionRepo.getRandomSubmissions(),
+    {
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        // Never retry on 404.
+        if (error.status === 404) return;
+        if (retryCount >= 5) return;
+        // Retry after 10 seconds.
+        setTimeout(() => revalidate({ retryCount }), 10000);
+      },
+    }
   );
 
   const {

@@ -3,13 +3,11 @@
 import { SubmissionList } from "@/components/review/SubmissionList";
 import { selectBadges } from "@/redux/badge/badgeSlice";
 import { useAppSelector } from "@/redux/hooks/useAppSelector";
-import { Button } from "@/components/ui/button";
 import { ReviewCard } from "@/components/review/ReviewCard";
 import { useReviewApi } from "@/hooks/api/useReviewApi";
 import { useState } from "react";
-import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
-import { Spinner } from "@/components/ui/spinner";
 import { Loading } from "@/components/review/Loading";
+import { TryAgain } from "@/components/review/TryAgain";
 
 const ReviewPage = () => {
   const badges = useAppSelector(selectBadges);
@@ -32,15 +30,7 @@ const ReviewPage = () => {
   }
 
   if (!randomSubmissions || randomSubmissions.length === 0) {
-    // console.log(randomSubmissions)
-    return (
-      <div className="flex items-center">
-        No more pending submissions
-        <Button className="ml-5" onClick={() => mutateRandomSubmissions()}>
-          Try again
-        </Button>
-      </div>
-    );
+    return <TryAgain onClick={() => mutateRandomSubmissions()} />;
   }
 
   return (
