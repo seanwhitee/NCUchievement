@@ -52,7 +52,7 @@ export const SubmissionView = ({ badge }: { badge: Badge }) => {
           <img
             src={fileUrl}
             alt="S3 media"
-            className="w-full min-h-32 object-contain"
+            className="w-full min-h-32 max-h-64 object-contain"
           />
         )}
         {videoExtensions.includes(fileExtension) && (

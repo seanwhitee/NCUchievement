@@ -34,7 +34,7 @@ const ReviewPage = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-black text-slate-800">
+    <div className="flex h-screen bg-gray-50 dark:bg-black text-slate-800 overflow-hidden">
       <SubmissionList
         key="submission-list"
         submissions={randomSubmissions}

@@ -24,7 +24,7 @@ export const BadgeCard = ({ badge, handleSubmit, status }: Props) => {
   return (
     <Card
       onClick={() => handleSubmit(badge)}
-      className={`transition-all hover:shadow-md hover:-translate-y-1 flex flex-col h-[250px] overflow-hidden ${
+      className={`transition-all hover:shadow-md hover:-translate-y-1 flex flex-col h-[200px] overflow-hidden ${
         isCompleted
           ? "bg-emerald-50/40 dark:bg-emerald-900/25"
           : "bg-white dark:bg-black dark:border-gray-700"
@@ -50,7 +50,7 @@ export const BadgeCard = ({ badge, handleSubmit, status }: Props) => {
             {badge.name}
           </span>
         </CardTitle>
-        <CardDescription className="text-sm pl-8 line-clamp-3 mt-2 mr-2 -ml-8  dark:text-gray-300">
+        <CardDescription className="text-sm pl-8 line-clamp-2 mt-2 mr-2 -ml-8 dark:text-gray-300">
           {badge.description}
         </CardDescription>
       </CardHeader>

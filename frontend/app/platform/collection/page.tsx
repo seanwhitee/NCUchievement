@@ -89,7 +89,7 @@ const CollectionPage = () => {
               {badges.length}
             </UIBadge>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {badges.map((badge) => (
               <BadgeCard
                 key={badge.badgeId}
